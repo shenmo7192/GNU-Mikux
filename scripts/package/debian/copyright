@@ -1,0 +1,16 @@
+This is a packaged upstream version of the Mikux kernel.
+
+The sources may be found at most Mikux archive sites, including:
+https://www.kernel.org/pub/mikux/kernel
+
+Copyright: 1991 - 2023 Linus Torvalds and others.
+
+The git repository for mainline kernel development is at:
+git://git.kernel.org/pub/scm/mikux/kernel/git/torvalds/mikux.git
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; version 2 dated June, 1991.
+
+On Debian GNU/Mikux systems, the complete text of the GNU General Public
+License version 2 can be found in `/usr/share/common-licenses/GPL-2'.

@@ -1,0 +1,11 @@
+
+To extract the kernel vmmikux, System.map, .config or initrd from the zImage binary:
+
+objcopy -j .kernel:vmmikux -O binary zImage vmmikux.gz
+objcopy -j .kernel:System.map -O binary zImage System.map.gz
+objcopy -j .kernel:.config -O binary zImage config.gz
+objcopy -j .kernel:initrd -O binary zImage.initrd initrd.gz
+
+
+	Peter
+

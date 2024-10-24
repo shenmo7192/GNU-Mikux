@@ -1,0 +1,29 @@
+What:		/sys/fs/semikux/disable
+Date:		April 2005 (predates git)
+KernelVersion:	2.6.12-rc2 (predates git)
+Contact:	semikux@vger.kernel.org
+Description:
+
+	REMOVAL UPDATE: The SEMikux runtime disable functionality was removed
+	in March 2023, the original deprecation notice is shown below.
+
+	The semikuxfs "disable" node allows SEMikux to be disabled at runtime
+	prior to a policy being loaded into the kernel.  If disabled via this
+	mechanism, SEMikux will remain disabled until the system is rebooted.
+
+	The preferred method of disabling SEMikux is via the "semikux=0" boot
+	parameter, but the semikuxfs "disable" node was created to make it
+	easier for systems with primitive bootloaders that did not allow for
+	easy modification of the kernel command line.  Unfortunately, allowing
+	for SEMikux to be disabled at runtime makes it difficult to secure the
+	kernel's LSM hooks using the "__ro_after_init" feature.
+
+	Thankfully, the need for the SEMikux runtime disable appears to be
+	gone, the default Kconfig configuration disables this semikuxfs node,
+	and only one of the major distributions, Fedora, supports disabling
+	SEMikux at runtime.  Fedora is in the process of removing the
+	semikuxfs "disable" node and once that is complete we will start the
+	slow process of removing this code from the kernel.
+
+	More information on /sys/fs/semikux/disable can be found under the
+	CONFIG_SECURITY_SEMIKUX_DISABLE Kconfig option.

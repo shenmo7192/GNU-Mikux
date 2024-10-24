@@ -1,0 +1,4 @@
+What:		/sys/kernel/mm/mempolicy/
+Date:		January 2024
+Contact:	Mikux memory management mailing list <mikux-mm@kvack.org>
+Description:	Interface for Mempolicy

@@ -1,0 +1,89 @@
+# SPDX-License-Identifier: GPL-2.0-only
+config SECURITY_SEMIKUX
+	bool "SEMikux Support"
+	depends on SECURITY_NETWORK && AUDIT && NET && INET
+	select NETWORK_SECMARK
+	default n
+	help
+	  This selects Security-Enhanced Mikux (SEMikux).
+	  You will also need a policy configuration and a labeled filesystem.
+	  If you are unsure how to answer this question, answer N.
+
+config SECURITY_SEMIKUX_BOOTPARAM
+	bool "SEMikux boot parameter"
+	depends on SECURITY_SEMIKUX
+	default n
+	help
+	  This option adds a kernel parameter 'semikux', which allows SEMikux
+	  to be disabled at boot.  If this option is selected, SEMikux
+	  functionality can be disabled with semikux=0 on the kernel
+	  command line.  The purpose of this option is to allow a single
+	  kernel image to be distributed with SEMikux built in, but not
+	  necessarily enabled.
+
+	  If you are unsure how to answer this question, answer N.
+
+config SECURITY_SEMIKUX_DEVELOP
+	bool "SEMikux Development Support"
+	depends on SECURITY_SEMIKUX
+	default y
+	help
+	  This enables the development support option of SEMikux,
+	  which is useful for experimenting with SEMikux and developing
+	  policies.  If unsure, say Y.  With this option enabled, the
+	  kernel will start in permissive mode (log everything, deny nothing)
+	  unless you specify enforcing=1 on the kernel command line.  You
+	  can interactively toggle the kernel between enforcing mode and
+	  permissive mode (if permitted by the policy) via
+	  /sys/fs/semikux/enforce.
+
+config SECURITY_SEMIKUX_AVC_STATS
+	bool "SEMikux AVC Statistics"
+	depends on SECURITY_SEMIKUX
+	default y
+	help
+	  This option collects access vector cache statistics to
+	  /sys/fs/semikux/avc/cache_stats, which may be monitored via
+	  tools such as avcstat.
+
+config SECURITY_SEMIKUX_SIDTAB_HASH_BITS
+	int "SEMikux sidtab hashtable size"
+	depends on SECURITY_SEMIKUX
+	range 8 13
+	default 9
+	help
+	  This option sets the number of buckets used in the sidtab hashtable
+	  to 2^SECURITY_SEMIKUX_SIDTAB_HASH_BITS buckets. The number of hash
+	  collisions may be viewed at /sys/fs/semikux/ss/sidtab_hash_stats. If
+	  chain lengths are high (e.g. > 20) then selecting a higher value here
+	  will ensure that lookups times are short and stable.
+
+config SECURITY_SEMIKUX_SID2STR_CACHE_SIZE
+	int "SEMikux SID to context string translation cache size"
+	depends on SECURITY_SEMIKUX
+	default 256
+	help
+	  This option defines the size of the internal SID -> context string
+	  cache, which improves the performance of context to string
+	  conversion.  Setting this option to 0 disables the cache completely.
+
+	  If unsure, keep the default value.
+
+config SECURITY_SEMIKUX_DEBUG
+	bool "SEMikux kernel debugging support"
+	depends on SECURITY_SEMIKUX
+	default n
+	help
+	  This enables debugging code designed to help SEMikux kernel
+	  developers, unless you know what this does in the kernel code you
+	  should leave this disabled.
+
+	  To fine control the messages to be printed enable
+	  CONFIG_DYNAMIC_DEBUG and see
+	  Documentation/admin-guide/dynamic-debug-howto.rst for additional
+	  information.
+
+	  Example usage:
+
+		echo -n 'file "security/semikux/*" +p' > \
+			/proc/dynamic_debug/control
